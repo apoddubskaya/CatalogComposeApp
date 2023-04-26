@@ -5,6 +5,7 @@ buildscript {
         def activity_compose_version = '1.5.1'
         def androidx_test_version = '1.4.0'
         def arch_version = '2.1.0'
+        def coil_compose_version = '2.3.0'
         def coroutines_android_version = '1.6.4'
         def espresso_version = '3.5.1'
         def gson_version = '2.9.0'
@@ -25,6 +26,7 @@ buildscript {
                 'androidx.compose.ui:ui-graphics',
                 'androidx.compose.ui:ui-tooling-preview',
                 'androidx.compose.material3:material3',
+                "io.coil-kt:coil-compose:$coil_compose_version",
 
                 // ViewModel
                 "androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version",
