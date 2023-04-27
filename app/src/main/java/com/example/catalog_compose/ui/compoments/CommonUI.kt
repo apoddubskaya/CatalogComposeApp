@@ -18,7 +18,7 @@ fun UnsplashImage(modifier: Modifier = Modifier, image: UnsplashImage) {
     AsyncImage(
         modifier = modifier,
         model = image.url,
-        contentDescription = "",
+        contentDescription = image.description,
         placeholder = painterResource(id = R.drawable.image_placeholder),
         error = painterResource(id = R.drawable.image_error)
     )

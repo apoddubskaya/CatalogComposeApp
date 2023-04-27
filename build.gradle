@@ -72,6 +72,10 @@ buildscript {
                 "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_android_version",
         ]
     }
+
+    dependencies {
+        classpath "com.google.android.libraries.mapsplatform.secrets-gradle-plugin:secrets-gradle-plugin:2.0.1"
+    }
 }
 
 plugins {
