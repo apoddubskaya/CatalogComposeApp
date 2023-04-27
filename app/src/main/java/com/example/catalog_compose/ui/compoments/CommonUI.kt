@@ -1,4 +1,4 @@
-package com.example.unsplashcompose.ui.compoments
+package com.example.catalog_compose.ui.compoments
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
@@ -10,8 +10,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.example.unsplashcompose.R
-import com.example.unsplashcompose.data.UnsplashImage
+import com.example.catalog_compose.R
+import com.example.catalog_compose.data.UnsplashImage
 
 @Composable
 fun UnsplashImage(modifier: Modifier = Modifier, image: UnsplashImage) {

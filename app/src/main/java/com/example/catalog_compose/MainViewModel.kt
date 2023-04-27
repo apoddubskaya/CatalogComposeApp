@@ -1,8 +1,8 @@
-package com.example.unsplashcompose
+package com.example.catalog_compose
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.unsplashcompose.data.UnsplashImage
+import com.example.catalog_compose.data.UnsplashImage
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

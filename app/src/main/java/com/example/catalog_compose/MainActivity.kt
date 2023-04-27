@@ -1,16 +1,16 @@
-package com.example.unsplashcompose
+package com.example.catalog_compose
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import com.example.unsplashcompose.ui.MainScreen
-import com.example.unsplashcompose.ui.theme.UnsplashComposeTheme
+import com.example.catalog_compose.ui.MainScreen
+import com.example.catalog_compose.ui.theme.CatalogComposeTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            UnsplashComposeTheme {
+            CatalogComposeTheme {
                 MainScreen()
             }
         }

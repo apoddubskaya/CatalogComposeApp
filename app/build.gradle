@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.unsplashcompose'
+    namespace 'com.example.catalog_compose'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.unsplashcompose"
+        applicationId "com.example.catalog_compose"
         minSdk 24
         targetSdk 33
         versionCode 1
@@ -52,7 +52,7 @@ dependencies {
     implementation platform('androidx.compose:compose-bom:2022.10.00')
     androidTestImplementation platform('androidx.compose:compose-bom:2022.10.00')
 
-    // dependencies are defined in ext arrays in UnsplashCompose/build.gradle
+    // dependencies are defined in ext arrays in CatalogCompose/build.gradle
     implementation libraries
     debugImplementation librariesDebug
 

@@ -1,4 +1,4 @@
-package com.example.unsplashcompose
+package com.example.catalog_compose
 
 import org.junit.Test
 

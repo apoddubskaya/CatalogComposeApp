@@ -1,4 +1,4 @@
-package com.example.unsplashcompose.ui.theme
+package com.example.catalog_compose.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
