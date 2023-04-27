@@ -1,11 +1,10 @@
-package com.example.catalog_compose.util
+package com.example.catalog_compose.network.interceptor
 
 import com.example.catalog_compose.BuildConfig
+import com.example.catalog_compose.network.ServerConstants.HEADER_AUTH_KEY
+import com.example.catalog_compose.network.ServerConstants.HEADER_AUTH_VALUE
 import okhttp3.Interceptor
 import okhttp3.Response
-
-private const val HEADER_AUTH_KEY = "Authorization"
-private const val HEADER_AUTH_VALUE = "Client-ID %s"
 
 /**
  * Adding access key header to requests

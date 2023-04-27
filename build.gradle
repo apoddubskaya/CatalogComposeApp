@@ -29,6 +29,7 @@ buildscript {
                 'androidx.compose.material3:material3',
                 "io.coil-kt:coil-compose:$coil_compose_version",
                 "androidx.compose.foundation:foundation:$compose_foundation_version",
+                "androidx.paging:paging-compose:1.0.0-alpha17",
 
                 // ViewModel
                 "androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version",

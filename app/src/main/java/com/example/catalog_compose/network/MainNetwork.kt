@@ -1,13 +1,16 @@
 package com.example.catalog_compose.network
 
-import com.example.catalog_compose.util.UnsplashAccessKeyInterceptor
+import com.example.catalog_compose.network.ServerConstants.BASE_URL
+import com.example.catalog_compose.network.ServerConstants.IMAGES_URL
+import com.example.catalog_compose.network.interceptor.UnsplashAccessKeyInterceptor
+import com.example.catalog_compose.network.obj.UnsplashImageObj
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Headers
+import retrofit2.http.Query
 
-private const val BASE_URL = "https://api.unsplash.com/"
 
 private val service: MainNetwork by lazy {
 
@@ -29,6 +32,6 @@ fun getNetworkService() = service
 interface MainNetwork {
 
     @Headers("Accept-Version: v1")
-    @GET("photos")
-    suspend fun getImages(): List<UnsplashImageObj>
+    @GET(IMAGES_URL)
+    suspend fun getImages(@Query("page") page: Int = 1): List<UnsplashImageObj>
 }

@@ -1,4 +1,4 @@
-package com.example.catalog_compose.network
+package com.example.catalog_compose.network.obj
 
 import com.example.catalog_compose.data.UnsplashImage
 import com.example.catalog_compose.util.Transformable

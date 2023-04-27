@@ -1,4 +1,4 @@
-package com.example.catalog_compose.network
+package com.example.catalog_compose.network.obj
 
 import com.google.gson.annotations.SerializedName
 
