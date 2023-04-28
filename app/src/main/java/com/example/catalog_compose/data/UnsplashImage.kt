@@ -4,4 +4,7 @@ data class UnsplashImage(
     val id: String,
     val description: String,
     val url: String,
+    val width: Int,
+    val height: Int,
+    val blurHash: String,
 )

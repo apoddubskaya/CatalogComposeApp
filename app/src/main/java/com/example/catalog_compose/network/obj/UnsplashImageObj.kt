@@ -6,6 +6,9 @@ import com.google.gson.annotations.SerializedName
 
 data class UnsplashImageObj(
     @SerializedName("id") val id: String,
+    @SerializedName("width") val width: Int,
+    @SerializedName("height") val height: Int,
+    @SerializedName("blur_hash") val blurHash: String,
     @SerializedName("description") val description: String?,
     @SerializedName("urls") val urls: UnsplashImageUrlsObj,
 ) : Transformable<UnsplashImage> {
@@ -14,6 +17,9 @@ data class UnsplashImageObj(
         UnsplashImage(
             id = id,
             description = description.orEmpty(),
-            url = urls.regular
+            url = urls.regular,
+            blurHash = blurHash,
+            width = width,
+            height = height,
         )
 }

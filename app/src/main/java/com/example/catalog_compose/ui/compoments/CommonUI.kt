@@ -6,22 +6,23 @@ import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
-import coil.compose.AsyncImage
+import coil.annotation.ExperimentalCoilApi
 import com.example.catalog_compose.R
 import com.example.catalog_compose.data.UnsplashImage
+import com.ondev.imageblurkt_lib.AsyncImageBlurHash
+import com.ondev.imageblurkt_lib.ImageBlurHashModel
 
+@OptIn(ExperimentalCoilApi::class)
 @Composable
 fun UnsplashImage(modifier: Modifier = Modifier, image: UnsplashImage) {
-    AsyncImage(
+    AsyncImageBlurHash(
         modifier = modifier,
-        model = image.url,
+        model = ImageBlurHashModel(data = image.url, blurHash = image.blurHash),
         contentDescription = image.description,
-        placeholder = painterResource(id = R.drawable.image_placeholder),
-        error = painterResource(id = R.drawable.image_error)
+        notImageFoundRes = R.drawable.image_error
     )
 }
 
