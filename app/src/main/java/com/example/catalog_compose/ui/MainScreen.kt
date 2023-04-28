@@ -10,7 +10,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.catalog_compose.MainViewModel
-import com.example.catalog_compose.ui.compoments.UnsplashImageListPaging
+import com.example.catalog_compose.ui.compoments.list.UnsplashImageListPaging
 
 @Composable
 fun MainScreen(

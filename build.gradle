@@ -2,8 +2,9 @@
 buildscript {
     ext {
 
-        def blur_hash_version = '3.0.1'
+        def accompanist_placeholder_version = '0.31.1-alpha'
         def activity_compose_version = '1.5.1'
+        def blur_hash_version = '3.0.1'
         def androidx_test_version = '1.4.0'
         def arch_version = '2.1.0'
         def coil_compose_version = '2.3.0'
@@ -32,6 +33,7 @@ buildscript {
                 "androidx.compose.foundation:foundation:$compose_foundation_version",
                 "androidx.paging:paging-compose:1.0.0-alpha17",
                 "com.github.orlando-dev-code:compose-image-blurhash:$blur_hash_version",
+                "com.google.accompanist:accompanist-placeholder-material3:$accompanist_placeholder_version",
 
                 // ViewModel
                 "androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version",
