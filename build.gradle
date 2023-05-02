@@ -4,9 +4,9 @@ buildscript {
 
         def accompanist_placeholder_version = '0.31.1-alpha'
         def activity_compose_version = '1.5.1'
-        def blur_hash_version = '3.0.1'
         def androidx_test_version = '1.4.0'
         def arch_version = '2.1.0'
+        def blur_hash_version = '3.0.1'
         def coil_compose_version = '2.3.0'
         def compose_foundation_version = '1.4.2'
         def coroutines_android_version = '1.6.4'
@@ -14,6 +14,7 @@ buildscript {
         def gson_version = '2.9.0'
         def junit_version = '4.13.2'
         def lifecycle_version = '2.5.1'
+        def navigation_version = '2.5.3'
         def retrofit_gson_version = '2.9.0'
         def retrofit_version = '2.9.0'
 
@@ -34,6 +35,9 @@ buildscript {
                 "androidx.paging:paging-compose:1.0.0-alpha17",
                 "com.github.orlando-dev-code:compose-image-blurhash:$blur_hash_version",
                 "com.google.accompanist:accompanist-placeholder-material3:$accompanist_placeholder_version",
+
+                // Navigation
+                "androidx.navigation:navigation-compose:$navigation_version",
 
                 // ViewModel
                 "androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version",

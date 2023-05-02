@@ -36,7 +36,7 @@ import com.google.accompanist.placeholder.placeholder
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun UnsplashImageList(
+fun UnsplashImageGrid(
     modifier: Modifier = Modifier,
     content: LazyStaggeredGridScope.() -> Unit
 ) {
@@ -55,7 +55,7 @@ fun UnsplashImageList(
 fun UnsplashImageListLoading(
     modifier: Modifier = Modifier
 ) {
-    UnsplashImageList(modifier = modifier) {
+    UnsplashImageGrid(modifier = modifier) {
         items(10) {
             Box(
                 modifier = modifier
@@ -102,20 +102,24 @@ fun UnsplashImageListError(
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun UnsplashImageListPaging(modifier: Modifier = Modifier, images: LazyPagingItems<UnsplashImage>) {
+fun UnsplashImageList(
+    modifier: Modifier = Modifier,
+    images: LazyPagingItems<UnsplashImage>,
+    onImageClick: (UnsplashImage) -> Unit,
+) {
     when (images.loadState.refresh) {
-        is LoadState.Loading -> UnsplashImageListLoading(modifier = modifier)
-        is LoadState.Error -> UnsplashImageListError(modifier = modifier) { images.retry() }
-        else -> UnsplashImageList(modifier = modifier) {
+        is LoadState.NotLoading -> UnsplashImageGrid(modifier = modifier) {
             items(images.itemCount) { index ->
-                images[index]?.let { UnsplashImage(modifier = modifier, image = it) }
+                images[index]?.let { UnsplashImage(modifier = modifier, image = it, onImageClick = onImageClick) }
             }
             when (images.loadState.append) {
                 is LoadState.Loading -> item(span = StaggeredGridItemSpan.FullLine) {
-                    CircularProgressIndicator(modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(24.dp)
-                        .wrapContentWidth(Alignment.CenterHorizontally))
+                    CircularProgressIndicator(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(24.dp)
+                            .wrapContentWidth(Alignment.CenterHorizontally)
+                    )
                 }
 
                 is LoadState.Error -> item(span = StaggeredGridItemSpan.FullLine) {
@@ -125,5 +129,8 @@ fun UnsplashImageListPaging(modifier: Modifier = Modifier, images: LazyPagingIte
                 else -> {}
             }
         }
+
+        is LoadState.Loading -> UnsplashImageListLoading(modifier = modifier)
+        is LoadState.Error -> UnsplashImageListError(modifier = modifier) { images.retry() }
     }
 }
