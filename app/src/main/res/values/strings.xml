@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">CatalogCompose</string>
+    <string name="load_error">Error occurred while fetching data. Check your internet connection and try to reload.</string>
 </resources>

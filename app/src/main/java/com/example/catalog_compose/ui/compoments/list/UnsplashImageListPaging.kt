@@ -7,20 +7,27 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.lazy.staggeredgrid.LazyStaggeredGridScope
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
+import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridItemSpan
 import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
+import com.example.catalog_compose.R
 import com.example.catalog_compose.data.UnsplashImage
 import com.example.catalog_compose.ui.compoments.UnsplashImage
 import com.google.accompanist.placeholder.PlaceholderHighlight
@@ -29,17 +36,17 @@ import com.google.accompanist.placeholder.placeholder
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun UnsplashImageList(modifier: Modifier = Modifier, images: LazyPagingItems<UnsplashImage>) {
+fun UnsplashImageList(
+    modifier: Modifier = Modifier,
+    content: LazyStaggeredGridScope.() -> Unit
+) {
     LazyVerticalStaggeredGrid(
         modifier = modifier,
         columns = StaggeredGridCells.Fixed(2),
         verticalItemSpacing = 8.dp,
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
-    ) {
-        items(images.itemCount) { index ->
-            images[index]?.let { UnsplashImage(modifier = modifier, image = it) }
-        }
-    }
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        content = content
+    )
 }
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -48,12 +55,7 @@ fun UnsplashImageList(modifier: Modifier = Modifier, images: LazyPagingItems<Uns
 fun UnsplashImageListLoading(
     modifier: Modifier = Modifier
 ) {
-    LazyVerticalStaggeredGrid(
-        modifier = modifier,
-        columns = StaggeredGridCells.Fixed(2),
-        verticalItemSpacing = 8.dp,
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
-    ) {
+    UnsplashImageList(modifier = modifier) {
         items(10) {
             Box(
                 modifier = modifier
@@ -81,7 +83,7 @@ fun UnsplashImageListError(
     ) {
         Text(
             modifier = modifier,
-            text = "Error occurred while fetching data. Check your internet connection and try to reload.",
+            text = stringResource(id = R.string.load_error),
             textAlign = TextAlign.Center,
             fontSize = 20.sp
         )
@@ -98,11 +100,30 @@ fun UnsplashImageListError(
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun UnsplashImageListPaging(modifier: Modifier = Modifier, images: LazyPagingItems<UnsplashImage>) {
     when (images.loadState.refresh) {
         is LoadState.Loading -> UnsplashImageListLoading(modifier = modifier)
         is LoadState.Error -> UnsplashImageListError(modifier = modifier) { images.retry() }
-        else -> UnsplashImageList(modifier = modifier, images = images)
+        else -> UnsplashImageList(modifier = modifier) {
+            items(images.itemCount) { index ->
+                images[index]?.let { UnsplashImage(modifier = modifier, image = it) }
+            }
+            when (images.loadState.append) {
+                is LoadState.Loading -> item(span = StaggeredGridItemSpan.FullLine) {
+                    CircularProgressIndicator(modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(24.dp)
+                        .wrapContentWidth(Alignment.CenterHorizontally))
+                }
+
+                is LoadState.Error -> item(span = StaggeredGridItemSpan.FullLine) {
+                    UnsplashImageListError(modifier = modifier) { images.retry() }
+                }
+
+                else -> {}
+            }
+        }
     }
 }
