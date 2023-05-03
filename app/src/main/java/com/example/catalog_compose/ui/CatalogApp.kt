@@ -1,6 +1,8 @@
 package com.example.catalog_compose.ui
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
@@ -24,6 +26,7 @@ fun CatalogComposeApp(
     navController: NavHostController = rememberNavController(),
 ) {
     val images = viewModel.images.collectAsLazyPagingItems()
+    val selectedImage by viewModel.selectedImage.collectAsState()
 
     NavHost(
         navController = navController,
@@ -31,12 +34,21 @@ fun CatalogComposeApp(
         modifier = modifier
     ) {
         composable(route = CatalogAppScreen.Main.name) {
-            MainScreen(images = images) {
-                navController.navigate(CatalogAppScreen.ImageDetail.name)
-            }
+            MainScreen(
+                images = images,
+                onImageClick = {
+                    viewModel.selectImage(it)
+                    navController.navigate(CatalogAppScreen.ImageDetail.name)
+                }
+            )
         }
         composable(route = CatalogAppScreen.ImageDetail.name) {
-            ImageDetailScreen()
+            ImageDetailScreen(
+                image = selectedImage,
+                onBackClick = { navController.popBackStack() },
+                onAboutClick = { /** TODO: click handle **/ },
+                onShareClick = { /** TODO: click handle **/ },
+            )
         }
     }
 }

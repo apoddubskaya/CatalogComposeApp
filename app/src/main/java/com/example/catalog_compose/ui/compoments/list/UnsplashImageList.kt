@@ -1,10 +1,12 @@
 package com.example.catalog_compose.ui.compoments.list
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -110,7 +112,14 @@ fun UnsplashImageList(
     when (images.loadState.refresh) {
         is LoadState.NotLoading -> UnsplashImageGrid(modifier = modifier) {
             items(images.itemCount) { index ->
-                images[index]?.let { UnsplashImage(modifier = modifier, image = it, onImageClick = onImageClick) }
+                images[index]?.let {
+                    UnsplashImage(
+                        modifier = modifier
+                            .aspectRatio(it.width.toFloat() / it.height)
+                            .clickable { onImageClick(it) },
+                        image = it,
+                    )
+                }
             }
             when (images.loadState.append) {
                 is LoadState.Loading -> item(span = StaggeredGridItemSpan.FullLine) {

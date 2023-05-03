@@ -1,15 +1,94 @@
 package com.example.catalog_compose.ui.screens
 
-import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.example.catalog_compose.R
+import com.example.catalog_compose.data.UnsplashImage
+import com.example.catalog_compose.ui.compoments.UnsplashImage
 
 @Composable
-fun ImageDetailScreen(modifier: Modifier = Modifier) {
-    Box(
-        modifier = modifier.fillMaxSize().background(color = Color.Green)
+fun ImageDetailScreen(
+    modifier: Modifier = Modifier,
+    image: UnsplashImage? = null,
+    onBackClick: () -> Unit = {},
+    onAboutClick: () -> Unit = {},
+    onShareClick: () -> Unit = {},
+) {
+    Box {
+        image?.let {
+            UnsplashImage(
+                modifier = modifier.fillMaxSize(),
+                image = it,
+            )
+        }
+        Column(modifier = modifier.fillMaxSize()) {
+            ImageDetailScreenBackButton(onBackClick = onBackClick)
+            Spacer(modifier = Modifier.weight(1f))
+            ImageDetailScreenBottomButtons(onAboutClick = onAboutClick, onShareClick = onShareClick)
+        }
+    }
+}
+
+@Composable
+fun ImageDetailScreenButton(
+    text: String = "",
+    onClick: () -> Unit = {},
+) = Button(
+    modifier = Modifier
+        .width(148.dp)
+        .height(48.dp),
+    onClick = onClick
+) { Text(text = text, fontSize = 16.sp) }
+
+@Composable
+fun ImageDetailScreenBottomButtons(
+    onAboutClick: () -> Unit = {},
+    onShareClick: () -> Unit = {},
+) = Row(
+    modifier = Modifier
+        .padding(24.dp)
+        .fillMaxWidth(),
+    horizontalArrangement = Arrangement.Center,
+) {
+    ImageDetailScreenButton(
+        text = stringResource(id = R.string.image_detail_screen_about_image), onClick = onAboutClick
+    )
+    Spacer(modifier = Modifier.width(16.dp))
+    ImageDetailScreenButton(
+        text = stringResource(id = R.string.image_detail_screen_share_image), onClick = onShareClick
+    )
+}
+
+@Composable
+fun ImageDetailScreenBackButton(
+    onBackClick: () -> Unit = {},
+) = IconButton(
+    modifier = Modifier
+        .padding(16.dp)
+        .size(24.dp),
+    onClick = onBackClick
+) {
+    Icon(
+        imageVector = Icons.Default.ArrowBack, contentDescription = "tap to go back"
     )
 }
