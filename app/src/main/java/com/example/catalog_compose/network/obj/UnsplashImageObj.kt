@@ -10,13 +10,14 @@ data class UnsplashImageObj(
     @SerializedName("height") val height: Int,
     @SerializedName("blur_hash") val blurHash: String,
     @SerializedName("description") val description: String?,
+    @SerializedName("alt_description") val altDescription: String?,
     @SerializedName("urls") val urls: UnsplashImageUrlsObj,
 ) : Transformable<UnsplashImage> {
 
     override fun transform(): UnsplashImage =
         UnsplashImage(
             id = id,
-            description = description.orEmpty(),
+            description = description ?: altDescription.orEmpty(),
             url = urls.regular,
             blurHash = blurHash,
             width = width,

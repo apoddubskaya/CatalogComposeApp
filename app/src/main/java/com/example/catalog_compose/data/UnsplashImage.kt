@@ -6,5 +6,5 @@ data class UnsplashImage(
     val url: String,
     val blurHash: String,
     val width: Int,
-    val height: Int
+    val height: Int,
 )

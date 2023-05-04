@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
-class MainViewModel(repository: MainRepository = MainRepository()) : ViewModel() {
+class MainViewModel(private val repository: MainRepository = MainRepository()) : ViewModel() {
 
     val images: Flow<PagingData<UnsplashImage>> = repository.getImages().cachedIn(viewModelScope)
 
@@ -21,4 +21,6 @@ class MainViewModel(repository: MainRepository = MainRepository()) : ViewModel()
     fun selectImage(image: UnsplashImage) {
         _selectedImage.update { image }
     }
+
+    private suspend fun getImageDetails(id: String) = repository.getImageDetails(id)
 }

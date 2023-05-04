@@ -3,6 +3,7 @@ buildscript {
     ext {
 
         def accompanist_placeholder_version = '0.31.1-alpha'
+        def accompanist_navigation_version = '0.31.1-alpha'
         def activity_compose_version = '1.5.1'
         def androidx_test_version = '1.4.0'
         def arch_version = '2.1.0'
@@ -38,6 +39,7 @@ buildscript {
 
                 // Navigation
                 "androidx.navigation:navigation-compose:$navigation_version",
+                "com.google.accompanist:accompanist-navigation-material:$accompanist_navigation_version",
 
                 // ViewModel
                 "androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version",

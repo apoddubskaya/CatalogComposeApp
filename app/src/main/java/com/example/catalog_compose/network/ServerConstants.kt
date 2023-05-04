@@ -8,5 +8,6 @@ object ServerConstants {
     const val BASE_URL = "https://api.unsplash.com/"
 
     const val IMAGES_PER_PAGE = 10
-    const val IMAGES_URL = "photos?per_page=$IMAGES_PER_PAGE"
+    const val IMAGES_URL = "photos"
+    const val IMAGE_DETAILS_URL = "$IMAGES_URL/{id}"
 }
