@@ -19,20 +19,36 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.catalog_compose.R
 import com.example.catalog_compose.data.UnsplashImage
+import com.example.catalog_compose.data.UnsplashImageDetails
 
 @Preview
 @Composable
 fun ImageDetailBottomSheet(
-    image: UnsplashImage? = null
+    image: UnsplashImage? = null,
+    imageDetails: UnsplashImageDetails? = null,
 ) {
     Column(Modifier.padding(horizontal = 24.dp)) {
         Spacer(modifier = Modifier.height(56.dp))
-        Text(text = "Laying in the sun in Puerto Rico", fontSize = 24.sp)
+        Text(
+            text = image?.description?.takeIf { it.isNotBlank() }
+                ?: stringResource(id = R.string.image_detail_screen_description_default),
+            fontSize = 24.sp
+        )
         Spacer(modifier = Modifier.height(24.dp))
         Row {
-            TitleTextDetail(title = stringResource(id = R.string.image_detail_screen_views), text = "1258")
-            Spacer(modifier = Modifier.width(40.dp))
-            TitleTextDetail(title = stringResource(id = R.string.image_detail_screen_downloads), text = "24")
+            if (imageDetails?.views != null) {
+                TitleTextDetail(
+                    title = stringResource(id = R.string.image_detail_screen_views),
+                    text = imageDetails.views.toString()
+                )
+                Spacer(modifier = Modifier.width(40.dp))
+            }
+            if (imageDetails?.views != null) {
+                TitleTextDetail(
+                    title = stringResource(id = R.string.image_detail_screen_downloads),
+                    text = imageDetails.downloads.toString()
+                )
+            }
         }
         Spacer(modifier = Modifier.height(24.dp))
         Text(

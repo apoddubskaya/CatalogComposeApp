@@ -1,9 +1,12 @@
 package com.example.catalog_compose.ui
 
+import android.widget.Toast
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -11,6 +14,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.catalog_compose.MainViewModel
+import com.example.catalog_compose.R
 import com.example.catalog_compose.ui.screens.ImageDetailBottomSheet
 import com.example.catalog_compose.ui.screens.ImageDetailScreen
 import com.example.catalog_compose.ui.screens.MainScreen
@@ -36,6 +40,7 @@ fun CatalogComposeApp(
 ) {
     val images = viewModel.images.collectAsLazyPagingItems()
     val selectedImage by viewModel.selectedImage.collectAsState()
+    val selectedImageDetails by viewModel.selectedImageDetails.collectAsState()
 
     ModalBottomSheetLayout(bottomSheetNavigator) {
         NavHost(
@@ -53,15 +58,24 @@ fun CatalogComposeApp(
                 )
             }
             composable(route = CatalogAppScreen.ImageDetail.name) {
+                val context = LocalContext.current
+                val imageDetailsNotAvailableToastText =
+                    stringResource(id = R.string.image_detail_screen_details_not_available)
                 ImageDetailScreen(
                     image = selectedImage,
                     onBackClick = { navController.popBackStack() },
-                    onAboutClick = { navController.navigate(CatalogAppScreen.ImageDetailBottomSheet.name) },
+                    onAboutClick = {
+                        if (selectedImageDetails != null) {
+                            navController.navigate(CatalogAppScreen.ImageDetailBottomSheet.name)
+                        } else {
+                            Toast.makeText(context, imageDetailsNotAvailableToastText, Toast.LENGTH_LONG).show()
+                        }
+                    },
                     onShareClick = { /** TODO: click handle **/ },
                 )
             }
             bottomSheet(route = CatalogAppScreen.ImageDetailBottomSheet.name) {
-                ImageDetailBottomSheet(image = selectedImage)
+                ImageDetailBottomSheet(image = selectedImage, imageDetails = selectedImageDetails)
             }
         }
     }

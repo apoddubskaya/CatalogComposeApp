@@ -17,7 +17,8 @@ data class UnsplashImageObj(
     override fun transform(): UnsplashImage =
         UnsplashImage(
             id = id,
-            description = description ?: altDescription.orEmpty(),
+            description = description.orEmpty(),
+            altDescription = altDescription.orEmpty(),
             url = urls.regular,
             blurHash = blurHash,
             width = width,

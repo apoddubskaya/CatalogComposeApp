@@ -3,6 +3,8 @@
     <string name="load_error">Error occurred while fetching data. Check your internet connection and try to reload.</string>
     <string name="image_detail_screen_about_image">About</string>
     <string name="image_detail_screen_share_image">Share</string>
+    <string name="image_detail_screen_details_not_available">Data not available</string>
+    <string name="image_detail_screen_description_default">Unsplash photo</string>
     <string name="image_detail_screen_views">Views</string>
     <string name="image_detail_screen_downloads">Downloads</string>
     <string name="image_detail_screen_licence">Free to use under the Unsplash License</string>

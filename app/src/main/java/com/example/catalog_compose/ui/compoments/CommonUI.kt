@@ -17,7 +17,7 @@ fun UnsplashImage(
     AsyncImageBlurHash(
         modifier = modifier,
         model = ImageBlurHashModel(data = image.url, blurHash = image.blurHash),
-        contentDescription = image.description,
+        contentDescription = image.altDescription,
         notImageFoundRes = R.drawable.image_error,
     )
 }
