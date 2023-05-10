@@ -1,7 +1,7 @@
 package com.example.catalog_compose.network.obj
 
 import com.example.catalog_compose.data.UnsplashImage
-import com.example.catalog_compose.util.Transformable
+import com.example.catalog_compose.network.util.Transformable
 import com.google.gson.annotations.SerializedName
 
 data class UnsplashImageObj(

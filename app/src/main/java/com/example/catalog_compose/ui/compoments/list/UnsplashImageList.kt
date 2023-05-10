@@ -1,7 +1,6 @@
 package com.example.catalog_compose.ui.compoments.list
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -32,6 +31,7 @@ import androidx.paging.compose.LazyPagingItems
 import com.example.catalog_compose.R
 import com.example.catalog_compose.data.UnsplashImage
 import com.example.catalog_compose.ui.compoments.UnsplashImage
+import com.example.catalog_compose.ui.util.clickableOnce
 import com.google.accompanist.placeholder.PlaceholderHighlight
 import com.google.accompanist.placeholder.material3.shimmer
 import com.google.accompanist.placeholder.placeholder
@@ -116,7 +116,7 @@ fun UnsplashImageList(
                     UnsplashImage(
                         modifier = modifier
                             .aspectRatio(it.width.toFloat() / it.height)
-                            .clickable { onImageClick(it) },
+                            .clickableOnce { onImageClick(it) },
                         image = it,
                     )
                 }

@@ -5,7 +5,7 @@ import androidx.paging.PagingState
 import com.example.catalog_compose.data.UnsplashImage
 import com.example.catalog_compose.network.MainNetwork
 import com.example.catalog_compose.network.getNetworkService
-import com.example.catalog_compose.util.transform
+import com.example.catalog_compose.network.util.transform
 
 class ImagesPagingSource(
     private val service: MainNetwork = getNetworkService()

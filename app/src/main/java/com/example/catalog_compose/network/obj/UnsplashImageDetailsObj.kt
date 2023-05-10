@@ -1,7 +1,7 @@
 package com.example.catalog_compose.network.obj
 
 import com.example.catalog_compose.data.UnsplashImageDetails
-import com.example.catalog_compose.util.Transformable
+import com.example.catalog_compose.network.util.Transformable
 import com.google.gson.annotations.SerializedName
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
