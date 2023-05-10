@@ -1,12 +1,14 @@
 package com.example.catalog_compose.ui
 
 import android.widget.Toast
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -42,7 +44,10 @@ fun CatalogComposeApp(
     val selectedImage by viewModel.selectedImage.collectAsState()
     val selectedImageDetails by viewModel.selectedImageDetails.collectAsState()
 
-    ModalBottomSheetLayout(bottomSheetNavigator) {
+    ModalBottomSheetLayout(
+        bottomSheetNavigator = bottomSheetNavigator,
+        sheetShape = RoundedCornerShape(topStart = 30.dp, topEnd = 30.dp),
+    ) {
         NavHost(
             navController = navController,
             startDestination = CatalogAppScreen.Main.name,
@@ -75,7 +80,7 @@ fun CatalogComposeApp(
                 )
             }
             bottomSheet(route = CatalogAppScreen.ImageDetailBottomSheet.name) {
-                ImageDetailBottomSheet(image = selectedImage, imageDetails = selectedImageDetails)
+                ImageDetailBottomSheet(imageDetails = selectedImageDetails)
             }
         }
     }

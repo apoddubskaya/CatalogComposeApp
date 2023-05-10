@@ -7,6 +7,7 @@
     <string name="image_detail_screen_description_default">Unsplash photo</string>
     <string name="image_detail_screen_views">Views</string>
     <string name="image_detail_screen_downloads">Downloads</string>
+    <string name="image_detail_screen_location_text">Published %s</string>
     <string name="image_detail_screen_licence">Free to use under the Unsplash License</string>
     <string name="image_detail_screen_special_information">Special information</string>
 </resources>

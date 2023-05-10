@@ -18,60 +18,86 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.catalog_compose.R
-import com.example.catalog_compose.data.UnsplashImage
 import com.example.catalog_compose.data.UnsplashImageDetails
+import java.time.format.DateTimeFormatter
 
 @Preview
 @Composable
 fun ImageDetailBottomSheet(
-    image: UnsplashImage? = null,
     imageDetails: UnsplashImageDetails? = null,
 ) {
     Column(Modifier.padding(horizontal = 24.dp)) {
         Spacer(modifier = Modifier.height(56.dp))
-        Text(
-            text = image?.description?.takeIf { it.isNotBlank() }
-                ?: stringResource(id = R.string.image_detail_screen_description_default),
-            fontSize = 24.sp
-        )
-        Spacer(modifier = Modifier.height(24.dp))
-        Row {
-            if (imageDetails?.views != null) {
-                TitleTextDetail(
-                    title = stringResource(id = R.string.image_detail_screen_views),
-                    text = imageDetails.views.toString()
-                )
-                Spacer(modifier = Modifier.width(40.dp))
-            }
-            if (imageDetails?.views != null) {
-                TitleTextDetail(
-                    title = stringResource(id = R.string.image_detail_screen_downloads),
-                    text = imageDetails.downloads.toString()
-                )
-            }
+        imageDetails?.let { details ->
+            Description(details.description)
+            Spacer(modifier = Modifier.height(24.dp))
+            ViewsAndDownloads(details)
+            Spacer(modifier = Modifier.height(24.dp))
+            SpecialInformation(details)
         }
-        Spacer(modifier = Modifier.height(24.dp))
+        Licence()
+        Spacer(modifier = Modifier.height(32.dp))
+    }
+}
+
+@Composable
+private fun Licence() {
+    Text(
+        text = stringResource(id = R.string.image_detail_screen_licence),
+        fontSize = 16.sp,
+    )
+}
+
+@Composable
+fun Description(description: String) {
+    Text(
+        text = description.takeIf { it.isNotBlank() }
+            ?: stringResource(id = R.string.image_detail_screen_description_default),
+        fontSize = 24.sp,
+    )
+}
+
+@Composable
+fun ViewsAndDownloads(details: UnsplashImageDetails) {
+    Row {
+        TitleTextDetail(
+            title = stringResource(id = R.string.image_detail_screen_views), text = details.views.toString()
+        )
+        Spacer(modifier = Modifier.width(40.dp))
+        TitleTextDetail(
+            title = stringResource(id = R.string.image_detail_screen_downloads), text = details.downloads.toString()
+        )
+    }
+}
+
+@Composable
+fun SpecialInformation(details: UnsplashImageDetails) {
+    if (details.location.isNotBlank() || details.created != null) {
         Text(
             text = stringResource(id = R.string.image_detail_screen_special_information),
             fontSize = 16.sp,
         )
         Spacer(modifier = Modifier.height(16.dp))
-        IconTextDetail(text = "Puerto Rico", iconRes = R.drawable.ic_profile)
+    }
+    if (details.location.isNotBlank()) {
+        IconTextDetail(text = details.location, iconRes = R.drawable.ic_profile)
         Spacer(modifier = Modifier.height(8.dp))
-        IconTextDetail(text = "Published 10h ago", iconRes = R.drawable.ic_phone)
-        Spacer(modifier = Modifier.height(16.dp))
-        Text(
-            text = stringResource(id = R.string.image_detail_screen_licence),
-            fontSize = 16.sp,
+    }
+    if (details.created != null) {
+        IconTextDetail(
+            text = stringResource(
+                id = R.string.image_detail_screen_location_text,
+                DateTimeFormatter.ofPattern("MMMM dd, yyyy | hh:mma").format(details.created)
+            ), iconRes = R.drawable.ic_phone
         )
-        Spacer(modifier = Modifier.height(32.dp))
+        Spacer(modifier = Modifier.height(16.dp))
     }
 }
 
 @Composable
 private fun IconTextDetail(
     text: String,
-    @DrawableRes iconRes: Int
+    @DrawableRes iconRes: Int,
 ) {
     Row(verticalAlignment = Alignment.CenterVertically) {
         Icon(painter = painterResource(id = iconRes), contentDescription = null)
