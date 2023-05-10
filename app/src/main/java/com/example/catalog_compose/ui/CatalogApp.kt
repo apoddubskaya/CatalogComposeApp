@@ -73,7 +73,7 @@ fun CatalogComposeApp(
                         if (selectedImageDetails != null) {
                             navController.navigate(CatalogAppScreen.ImageDetailBottomSheet.name)
                         } else {
-                            Toast.makeText(context, imageDetailsNotAvailableToastText, Toast.LENGTH_LONG).show()
+                            Toast.makeText(context, imageDetailsNotAvailableToastText, Toast.LENGTH_SHORT).show()
                         }
                     },
                     onShareClick = { /** TODO: click handle **/ },

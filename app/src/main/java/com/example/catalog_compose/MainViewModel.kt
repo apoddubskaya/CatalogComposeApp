@@ -27,6 +27,7 @@ class MainViewModel(private val repository: MainRepository = MainRepository()) :
     fun selectImage(image: UnsplashImage) {
         _selectedImage.update { image }
         viewModelScope.launch {
+            _selectedImageDetails.update { null }
             try {
                 val details = repository.getImageDetails(image.id)
                 _selectedImageDetails.update { details }
