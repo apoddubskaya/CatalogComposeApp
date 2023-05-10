@@ -7,11 +7,11 @@ import com.example.catalog_compose.data.UnsplashImage
 import com.example.catalog_compose.data.UnsplashImageDetails
 import com.example.catalog_compose.network.MainNetwork
 import com.example.catalog_compose.network.ServerConstants.IMAGES_PER_PAGE
-import com.example.catalog_compose.network.getNetworkService
 import com.example.catalog_compose.network.pagination.ImagesPagingSource
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class MainRepository(private val service: MainNetwork = getNetworkService()) {
+class MainRepository @Inject constructor(private val service: MainNetwork) {
 
     fun getImages(): Flow<PagingData<UnsplashImage>> = Pager(
         config = PagingConfig(pageSize = IMAGES_PER_PAGE),

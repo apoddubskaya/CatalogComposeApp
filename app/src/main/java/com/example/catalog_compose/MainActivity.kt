@@ -6,7 +6,9 @@ import androidx.activity.compose.setContent
 import com.example.catalog_compose.ui.CatalogComposeApp
 import com.example.catalog_compose.ui.theme.CatalogComposeTheme
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 @OptIn(ExperimentalMaterialNavigationApi::class)
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

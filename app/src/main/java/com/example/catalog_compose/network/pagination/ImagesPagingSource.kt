@@ -4,11 +4,10 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.catalog_compose.data.UnsplashImage
 import com.example.catalog_compose.network.MainNetwork
-import com.example.catalog_compose.network.getNetworkService
 import com.example.catalog_compose.network.util.transform
 
 class ImagesPagingSource(
-    private val service: MainNetwork = getNetworkService()
+    private val service: MainNetwork
 ) : PagingSource<Int, UnsplashImage>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, UnsplashImage> =

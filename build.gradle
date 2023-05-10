@@ -13,6 +13,8 @@ buildscript {
         def coroutines_android_version = '1.6.4'
         def espresso_version = '3.5.1'
         def gson_version = '2.9.0'
+        def hilt_version = '2.46'
+        def hilt_navigation_version = '1.0.0'
         def junit_version = '4.13.2'
         def lifecycle_version = '2.5.1'
         def navigation_version = '2.5.3'
@@ -48,11 +50,19 @@ buildscript {
                 "com.google.code.gson:gson:$gson_version",
                 "com.squareup.retrofit2:converter-gson:$retrofit_gson_version",
                 "com.squareup.retrofit2:retrofit:$retrofit_version",
+
+                // Hilt DI
+                "com.google.dagger:hilt-android:$hilt_version",
+                "androidx.hilt:hilt-navigation-compose:$hilt_navigation_version",
         ]
 
         librariesDebug = [
                 'androidx.compose.ui:ui-tooling',
                 'androidx.compose.ui:ui-test-manifest'
+        ]
+
+        librariesKapt = [
+                "com.google.dagger:hilt-compiler:$hilt_version",
         ]
 
         testLibraries = [
@@ -93,4 +103,5 @@ plugins {
     id 'com.android.application' version '8.0.0' apply false
     id 'com.android.library' version '8.0.0' apply false
     id 'org.jetbrains.kotlin.android' version '1.7.20' apply false
+    id 'com.google.dagger.hilt.android' version '2.46' apply false
 }
