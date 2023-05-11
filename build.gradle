@@ -46,6 +46,9 @@ buildscript {
                 // ViewModel
                 "androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version",
 
+                // Lifecycle
+                "androidx.lifecycle:lifecycle-runtime-compose:$lifecycle_version",
+
                 // network & serialization
                 "com.google.code.gson:gson:$gson_version",
                 "com.squareup.retrofit2:converter-gson:$retrofit_gson_version",

@@ -1,4 +1,4 @@
-package com.example.catalog_compose.ui.screens
+package com.example.catalog_compose.ui.screens.image_detail
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -18,24 +18,45 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.catalog_compose.R
-import com.example.catalog_compose.data.UnsplashImage
 import com.example.catalog_compose.ui.compoments.UnsplashImage
+
+@Composable
+fun ImageDetailRoute(
+    onBackClick: () -> Unit,
+    onAboutClick: () -> Unit,
+    onShareClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: ImageDetailViewModel = hiltViewModel(),
+) {
+    val uiState by viewModel.imageDetailsUiState.collectAsStateWithLifecycle()
+
+    ImageDetailScreen(
+        modifier = modifier,
+        uiState = uiState,
+        onShareClick = onShareClick,
+        onAboutClick = onAboutClick,
+        onBackClick = onBackClick,
+    )
+}
 
 @Composable
 fun ImageDetailScreen(
     modifier: Modifier = Modifier,
-    image: UnsplashImage? = null,
+    uiState: ImageDetailUiState,
     onBackClick: () -> Unit = {},
     onAboutClick: () -> Unit = {},
     onShareClick: () -> Unit = {},
 ) {
     Box {
-        image?.let {
+        (uiState as? ImageDetailUiState.Data)?.details?.image?.let {
             UnsplashImage(
                 modifier = modifier.fillMaxSize(),
                 image = it,
