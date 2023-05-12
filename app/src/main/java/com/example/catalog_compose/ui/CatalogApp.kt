@@ -47,7 +47,7 @@ fun CatalogComposeApp(
             composable(route = CatalogAppScreen.Main.name) {
                 MainScreen(
                     images = images,
-                    onImageClick = { navController.navigateToImageDetail(it.id) },
+                    onImageClick = { navController.navigateToImageDetail(it.id, it.blurHash) },
                 )
             }
             imageDetailScreen(

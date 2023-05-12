@@ -25,8 +25,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import coil.annotation.ExperimentalCoilApi
 import com.example.catalog_compose.R
 import com.example.catalog_compose.ui.compoments.UnsplashImage
+import com.example.catalog_compose.ui.util.Request
+import com.ondev.imageblurkt_lib.ImageBlurHashModel
+import com.ondev.imageblurkt_lib.ImageBlurOnly
 
 @Composable
 fun ImageDetailRoute(
@@ -47,6 +51,7 @@ fun ImageDetailRoute(
     )
 }
 
+@OptIn(ExperimentalCoilApi::class)
 @Composable
 fun ImageDetailScreen(
     modifier: Modifier = Modifier,
@@ -54,18 +59,44 @@ fun ImageDetailScreen(
     onBackClick: () -> Unit = {},
     onAboutClick: () -> Unit = {},
     onShareClick: () -> Unit = {},
-) {
-    Box {
-        (uiState as? ImageDetailUiState.Data)?.details?.image?.let {
+) = with(uiState) {
+    Box(modifier = Modifier.fillMaxSize()) {
+        if (imageDetailsRequest is Request.Success) {
             UnsplashImage(
                 modifier = modifier.fillMaxSize(),
-                image = it,
+                image = imageDetailsRequest.data.image,
+            )
+            ImageDetailScreenBottomButtons(onAboutClick = onAboutClick, onShareClick = onShareClick)
+        } else {
+            ImageBlurOnly(
+                modifier = Modifier.fillMaxSize(),
+                data = ImageBlurHashModel(blurHash = uiState.imageBlurHash, data = ""),
             )
         }
-        Column(modifier = modifier.fillMaxSize()) {
-            ImageDetailScreenBackButton(onBackClick = onBackClick)
-            Spacer(modifier = Modifier.weight(1f))
-            ImageDetailScreenBottomButtons(onAboutClick = onAboutClick, onShareClick = onShareClick)
+        ImageDetailScreenBackButton(onBackClick = onBackClick)
+    }
+}
+
+@Composable
+fun ImageDetailScreenBottomButtons(
+    onAboutClick: () -> Unit = {},
+    onShareClick: () -> Unit = {},
+) {
+    Column(modifier = Modifier.fillMaxSize()) {
+        Spacer(modifier = Modifier.weight(1f))
+        Row(
+            modifier = Modifier
+                .padding(24.dp)
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center,
+        ) {
+            ImageDetailScreenButton(
+                text = stringResource(id = R.string.image_detail_screen_about_image), onClick = onAboutClick
+            )
+            Spacer(modifier = Modifier.width(16.dp))
+            ImageDetailScreenButton(
+                text = stringResource(id = R.string.image_detail_screen_share_image), onClick = onShareClick
+            )
         }
     }
 }
@@ -80,25 +111,6 @@ fun ImageDetailScreenButton(
         .height(48.dp),
     onClick = onClick
 ) { Text(text = text, fontSize = 16.sp) }
-
-@Composable
-fun ImageDetailScreenBottomButtons(
-    onAboutClick: () -> Unit = {},
-    onShareClick: () -> Unit = {},
-) = Row(
-    modifier = Modifier
-        .padding(24.dp)
-        .fillMaxWidth(),
-    horizontalArrangement = Arrangement.Center,
-) {
-    ImageDetailScreenButton(
-        text = stringResource(id = R.string.image_detail_screen_about_image), onClick = onAboutClick
-    )
-    Spacer(modifier = Modifier.width(16.dp))
-    ImageDetailScreenButton(
-        text = stringResource(id = R.string.image_detail_screen_share_image), onClick = onShareClick
-    )
-}
 
 @Composable
 fun ImageDetailScreenBackButton(

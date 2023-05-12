@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.catalog_compose.R
 import com.example.catalog_compose.data.UnsplashImageDetails
+import com.example.catalog_compose.ui.util.Request
 import java.time.format.DateTimeFormatter
 
 @Composable
@@ -28,7 +29,7 @@ fun ImageDetailBottomSheetRoute(
     viewModel: ImageDetailViewModel,
 ) {
     val uiState by viewModel.imageDetailsUiState.collectAsStateWithLifecycle()
-    ImageDetailBottomSheet(imageDetails = (uiState as? ImageDetailUiState.Data)?.details)
+    ImageDetailBottomSheet(imageDetails = (uiState.imageDetailsRequest as? Request.Success)?.data)
 }
 
 @Preview

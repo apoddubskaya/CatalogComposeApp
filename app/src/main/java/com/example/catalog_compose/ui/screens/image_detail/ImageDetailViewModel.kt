@@ -5,6 +5,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.catalog_compose.MainRepository
 import com.example.catalog_compose.data.UnsplashImageDetails
+import com.example.catalog_compose.ui.screens.image_detail.navigation.imageBlurHashArg
+import com.example.catalog_compose.ui.screens.image_detail.navigation.imageIdArg
+import com.example.catalog_compose.ui.util.Request
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -19,25 +22,30 @@ class ImageDetailViewModel @Inject constructor(
     repository: MainRepository,
 ) : ViewModel() {
 
-    private val imageId: String = checkNotNull(savedStateHandle["imageId"])
+    private val imageId: String = checkNotNull(savedStateHandle[imageIdArg])
+    private val imageBlurHash: String = checkNotNull(savedStateHandle[imageBlurHashArg])
 
-    private val _imageDetailsUiState = MutableStateFlow<ImageDetailUiState>(ImageDetailUiState.Loading)
+    private val _imageDetailsUiState = MutableStateFlow(
+        ImageDetailUiState(
+            imageBlurHash = imageBlurHash,
+            imageDetailsRequest = Request.Loading()
+        )
+    )
     val imageDetailsUiState: StateFlow<ImageDetailUiState> = _imageDetailsUiState.asStateFlow()
 
     init {
         viewModelScope.launch {
             try {
                 val details = repository.getImageDetails(imageId)
-                _imageDetailsUiState.update { ImageDetailUiState.Data(details) }
+                _imageDetailsUiState.update { it.copy(imageDetailsRequest = Request.Success(details)) }
             } catch (e: Exception) {
-                _imageDetailsUiState.update { ImageDetailUiState.Error }
+                _imageDetailsUiState.update { it.copy(imageDetailsRequest = Request.Error(e)) }
             }
         }
     }
 }
 
-sealed interface ImageDetailUiState {
-    object Loading : ImageDetailUiState
-    data class Data(val details: UnsplashImageDetails) : ImageDetailUiState
-    object Error : ImageDetailUiState
-}
+data class ImageDetailUiState(
+    val imageBlurHash: String,
+    val imageDetailsRequest: Request<UnsplashImageDetails>,
+)
